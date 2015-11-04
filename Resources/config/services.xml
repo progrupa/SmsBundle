@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="progrupa.sms.service_class">Progrupa\SmsBundle\Service\Sms</parameter>
+        <parameter key="progrupa.sms.transport.smsapi.pl_class">Progrupa\SmsBundle\Transport\SmsapiPlTransport</parameter>
+    </parameters>
+
+    <services>
+        <service id="progrupa.sms" class="%progrupa.sms.service_class%">
+            <argument type="service" id="progrupa.sms.transport.smsapi.pl" />
+        </service>
+        <!-- Transports -->
+        <service id="progrupa.sms.transport.smsapi.pl" class="%progrupa.sms.transport.smsapi.pl_class%" public="false">
+            <argument>%progrupa.sms.transport.smsapi_pl.username%</argument>
+            <argument>%progrupa.sms.transport.smsapi_pl.password%</argument>
+            <argument>%progrupa.sms.transport.smsapi_pl.options%</argument>
+        </service>
+    </services>
+</container>

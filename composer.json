@@ -14,5 +14,9 @@
     "require" : {
         "php": ">=5.4",
         "smsapi.pl/php-client": "dev-master"
+    },
+    "require-dev": {
+      "phake/phake": "2.*",
+      "phpunit/phpunit": "4.3.*"
     }
 }
