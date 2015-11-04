@@ -13,6 +13,6 @@
     },
     "require" : {
         "php": ">=5.4",
-        "smsapi/smsapi-php-client": "dev-master"
+        "smsapi.pl/php-client": "dev-master"
     }
 }
