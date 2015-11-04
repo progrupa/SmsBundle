@@ -1,0 +1,18 @@
+{
+    "name" : "progrupa/sms-bundle",
+    "description" : "Bundle for sending SMS messages",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Dominik Kasprzak",
+        "email" : "dominik.kasprzak@progrupa.com"
+    }],
+    "keywords" : ["sms", "bundle"],
+    "license":      "proprietary",
+    "autoload": {
+        "psr-4": { "Progrupa\\SmsBundle\\": "" }
+    },
+    "require" : {
+        "php": ">=5.4",
+        "smsapi/smsapi-php-client": "dev-master"
+    }
+}
