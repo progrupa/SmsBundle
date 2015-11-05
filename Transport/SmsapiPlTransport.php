@@ -10,41 +10,45 @@ use SMSApi;
 
 class SmsapiPlTransport implements TransportInterface
 {
-    /** @var  SMSApi\Client */
-    private $client;
+    /** @var  SMSApi\Api\SmsFactory */
+    private $factory;
     /** @var  array */
     private $options;
 
-    public function __construct($login, $password, $options = [])
+    public function __construct(SMSApi\Api\SmsFactory $factory, SMSApi\Client $client, $options = [])
     {
-        $this->client = new SMSApi\Client($login);
-        $this->client->setPasswordRaw($password);
+        $this->factory = $factory;
+        $this->factory->setClient($client);
         $this->options = $options;
     }
 
     public function send(Sms $sms)
     {
-        $smsapi = new SMSApi\Api\SmsFactory();
-        $smsapi->setClient($this->client);
-
         $result = new Result();
 
         try {
-            $actionSend = $smsapi->actionSend();
+            $actionSend = $this->factory->actionSend();
 
             $this->setOptions($actionSend);
 
             $actionSend->setTo($sms->recipient);
             $actionSend->setText($sms->message);
-            $actionSend->setSender($sms->sender);
 
             $response = $actionSend->execute();
 
-            foreach ($response->getList() as $status) {
-                if ($status->getError()) {
-                    $result->setSuccess(false);
-                    $result->setMessage($status->getError());
+            if ($response instanceof SMSApi\Api\Response\StatusResponse) {
+                foreach ($response->getList() as $status) {
+                    if ($status->getError()) {
+                        $result->setSuccess(false);
+                        $result->setMessage($status->getError());
+                    }
                 }
+            } elseif ($response instanceof SMSApi\Api\Response\ErrorResponse) {
+                $result->setSuccess(false);
+                $result->setMessage($response->message);
+            } else {
+                $result->setSuccess(false);
+                $result->setMessage("Unrecognized response");
             }
         } catch (SMSApi\Exception\SmsapiException $exception) {
             $result->setMessage(false);

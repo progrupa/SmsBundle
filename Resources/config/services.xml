@@ -7,17 +7,29 @@
     <parameters>
         <parameter key="progrupa.sms.service_class">Progrupa\SmsBundle\Service\Sms</parameter>
         <parameter key="progrupa.sms.transport.smsapi.pl_class">Progrupa\SmsBundle\Transport\SmsapiPlTransport</parameter>
+        <parameter key="progrupa.sms.transport.smsapi.pl.factory_class">SMSApi\Api\SmsFactory</parameter>
+        <parameter key="progrupa.sms.transport.smsapi.pl.client_class">SMSApi\Client</parameter>
+
+        <parameter key="progrupa.sms.transport_tag">progrupa.sms.transport</parameter>
     </parameters>
 
     <services>
         <service id="progrupa.sms" class="%progrupa.sms.service_class%">
-            <argument type="service" id="progrupa.sms.transport.smsapi.pl" />
+            <argument />
         </service>
         <!-- Transports -->
         <service id="progrupa.sms.transport.smsapi.pl" class="%progrupa.sms.transport.smsapi.pl_class%" public="false">
-            <argument>%progrupa.sms.transport.smsapi_pl.username%</argument>
-            <argument>%progrupa.sms.transport.smsapi_pl.password%</argument>
+            <argument type="service" id="progrupa.sms.transport.smsapi.pl.factory" />
+            <argument type="service" id="progrupa.sms.transport.smsapi.pl.client" />
             <argument>%progrupa.sms.transport.smsapi_pl.options%</argument>
+            <tag name="progrupa.sms.transport" alias="smsapi.pl" />
+        </service>
+        <service id="progrupa.sms.transport.smsapi.pl.factory" class="%progrupa.sms.transport.smsapi.pl.factory_class%" public="false" />
+        <service id="progrupa.sms.transport.smsapi.pl.client" class="%progrupa.sms.transport.smsapi.pl.client_class%" public="false">
+            <argument>%progrupa.sms.transport.smsapi_pl.username%</argument>
+            <call method="setPasswordRaw">
+                <argument>%progrupa.sms.transport.smsapi_pl.password%</argument>
+            </call>
         </service>
     </services>
 </container>
