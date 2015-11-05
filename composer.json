@@ -13,7 +13,7 @@
     },
     "require" : {
         "php": ">=5.4",
-        "smsapi.pl/php-client": "dev-master"
+        "smsapi.pl/php-client": "~1.6"
     },
     "require-dev": {
       "phake/phake": "2.*",
