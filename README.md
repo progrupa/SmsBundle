@@ -1,11 +1,11 @@
-Progrupa Sms Bundle
+Progrupa SMS Bundle
 ==================
 Extensible Symfony2 bundle for sending simple SMS messages.
 
 ## Installation
 The bundle is available via composer, simply call `composer require progrupa/sms-bundle:dev-master` or add `"progrupa/sms-bundle": "dev-master"` to your composer.json and then call `composer update progrupa/sms-bundle`.
 
-Then enable the pundle in your AppKernel.php:
+Then enable the bundle in your AppKernel.php:
 ```
     new Progrupa\SmsBundle\ProgrupaSmsBundle()
 ```
@@ -87,3 +87,6 @@ Example configuration:
 progrupa_sms:
     transport: 'my_awesome_transport'
 ```
+
+## Contributions
+We are open to pull requests providing new transport support or new features, feel free to contact us.
