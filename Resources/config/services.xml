@@ -23,6 +23,9 @@
             <argument type="service" id="progrupa.sms.transport.smsapi.pl.client" />
             <argument>%progrupa.sms.transport.smsapi_pl.options%</argument>
             <tag name="progrupa.sms.transport" alias="smsapi.pl" />
+            <call method="setLogger">
+                <argument type="service" id="logger" />
+            </call>
         </service>
         <service id="progrupa.sms.transport.smsapi.pl.factory" class="%progrupa.sms.transport.smsapi.pl.factory_class%" public="false" />
         <service id="progrupa.sms.transport.smsapi.pl.client" class="%progrupa.sms.transport.smsapi.pl.client_class%" public="false">
