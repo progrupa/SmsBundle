@@ -20,11 +20,12 @@ class Sms implements LoggerAwareInterface
         $this->transport = $transport;
     }
 
-    public function send ($recipient, $messageText)
+    public function send ($recipient, $messageText, $options = [])
     {
         $message = new Model\Sms();
         $message->recipient = $recipient;
         $message->message = $messageText;
+        $message->options = $options;
 
         return $this->transport->send($message);
     }

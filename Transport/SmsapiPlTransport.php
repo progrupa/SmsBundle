@@ -33,14 +33,14 @@ class SmsapiPlTransport implements TransportInterface, LoggerAwareInterface
         try {
             $actionSend = $this->factory->actionSend();
 
-            $this->setOptions($actionSend);
+            $this->setOptions($actionSend, array_merge($this->options, $sms->options));
 
             $actionSend->setTo($sms->recipient);
             $actionSend->setText($sms->message);
 
             $response = $actionSend->execute();
 
-            if ($this->options['test'] && $this->logger) {
+            if (isset($this->options['test']) && $this->options['test'] && $this->logger) {
                 $this->logger->info(sprintf("Sending sms to %s: '%s'", $sms->recipient, $sms->message));
             }
 
@@ -66,9 +66,9 @@ class SmsapiPlTransport implements TransportInterface, LoggerAwareInterface
         return $result;
     }
 
-    private function setOptions(SMSApi\Api\Action\AbstractAction $action)
+    private function setOptions(SMSApi\Api\Action\AbstractAction $action, $options)
     {
-        foreach ($this->options as $option => $value) {
+        foreach ($options as $option => $value) {
             $method_name = 'set' . ucfirst($option);
             if (method_exists($action, $method_name)) {
                 call_user_func([$action, $method_name], $value);

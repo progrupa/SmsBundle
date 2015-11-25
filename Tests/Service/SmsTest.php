@@ -18,9 +18,9 @@ class SmsTest extends \PHPUnit_Framework_TestCase
         $message = new \Progrupa\SmsBundle\Model\Sms();
         $message->recipient = '555555555';
         $message->message = 'Test message';
-        $message->sender = 'Sender';
+        $message->options = ['from' => 'Sender'];
 
-        $service->send('555555555', 'Test message', 'Sender');
+        $service->send('555555555', 'Test message', ['from' => 'Sender']);
 
         \Phake::verify($transport)->send($message);
     }
@@ -34,10 +34,10 @@ class SmsTest extends \PHPUnit_Framework_TestCase
 
         $result = new Result(true, '');
         \Phake::when($transport)->send(\Phake::anyParameters())->thenReturn($result);
-        $this->assertEquals($result, $service->send('555555555', 'Test message', 'Sender'));
+        $this->assertEquals($result, $service->send('555555555', 'Test message', ['from' => 'Sender']));
 
         $result = new Result(false, 'Error encountered');
         \Phake::when($transport)->send(\Phake::anyParameters())->thenReturn($result);
-        $this->assertEquals($result, $service->send('555555555', 'Test message', 'Sender'));
+        $this->assertEquals($result, $service->send('555555555', 'Test message', ['from' => 'Sender']));
     }
 }

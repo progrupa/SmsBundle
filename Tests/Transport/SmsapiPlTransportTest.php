@@ -54,6 +54,21 @@ class SmsapiPlTransportTest extends \PHPUnit_Framework_TestCase
         \Phake::verify($sendAction)->setEncoding('xxx');
     }
 
+    /** @test */
+    public function should_merge_options_from_SMS()
+    {
+        $sendAction = \Phake::mock(Send::class);
+        \Phake::when($sendAction)->execute()->thenReturn(new StatusResponse(self::DEFAULT_RESPONSE));
+
+        $transport = $this->givenTransport(null, null, $sendAction, ['sender' => 'Zenek', 'encoding' => 'xxx']);
+
+        $transport->send(new Sms('888999000', 'test', ['sender' => 'Krzychu', 'test' => 1]));
+
+        \Phake::verify($sendAction)->setSender('Krzychu');
+        \Phake::verify($sendAction)->setEncoding('xxx');
+        \Phake::verify($sendAction)->setTest(1);
+    }
+
     /**
      * @test
      *@expectedException \Progrupa\SmsBundle\Exception\UnhandledOption
