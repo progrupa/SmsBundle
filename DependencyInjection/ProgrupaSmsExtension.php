@@ -18,8 +18,7 @@ class ProgrupaSmsExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('progrupa.sms.transport', $config['transport']);
-        $container->setParameter('progrupa.sms.transport.smsapi_pl.username', $config['smsapi_pl']['username']);
-        $container->setParameter('progrupa.sms.transport.smsapi_pl.password', $config['smsapi_pl']['password']);
+        $container->setParameter('progrupa.sms.transport.smsapi_pl.api_token', $config['smsapi_pl']['api_token']);
         $container->setParameter('progrupa.sms.transport.smsapi_pl.options', $config['smsapi_pl']['options']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

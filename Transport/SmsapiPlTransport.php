@@ -59,7 +59,7 @@ class SmsapiPlTransport implements TransportInterface, LoggerAwareInterface
                 $result->setMessage("Unrecognized response");
             }
         } catch (SMSApi\Exception\SmsapiException $exception) {
-            $result->setMessage(false);
+            $result->setSuccess(false);
             $result->setMessage($exception->getMessage());
         }
 

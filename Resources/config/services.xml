@@ -29,10 +29,8 @@
         </service>
         <service id="progrupa.sms.transport.smsapi.pl.factory" class="%progrupa.sms.transport.smsapi.pl.factory_class%" public="false" />
         <service id="progrupa.sms.transport.smsapi.pl.client" class="%progrupa.sms.transport.smsapi.pl.client_class%" public="false">
-            <argument>%progrupa.sms.transport.smsapi_pl.username%</argument>
-            <call method="setPasswordRaw">
-                <argument>%progrupa.sms.transport.smsapi_pl.password%</argument>
-            </call>
+            <factory class="%progrupa.sms.transport.smsapi.pl.client_class%" method="createFromToken"/>
+            <argument>%progrupa.sms.transport.smsapi_pl.api_token%</argument>
         </service>
     </services>
 </container>

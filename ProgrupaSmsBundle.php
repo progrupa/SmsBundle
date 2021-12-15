@@ -14,5 +14,4 @@ class ProgrupaSmsBundle extends Bundle
     {
         $container->addCompilerPass(new TransportPass());
     }
-
 }
