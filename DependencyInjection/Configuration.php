@@ -13,9 +13,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('progrupa_sms');
 
-        $treeBuilder->root('progrupa_sms')
+        $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('transport')->end()
                 ->arrayNode('smsapi_pl')
